@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
   def index
+    if User.last
+	     render plain: User.last.to_json, content_type: 'application/json'
+    end
   end
 
   def show
@@ -8,7 +11,7 @@ class UsersController < ApplicationController
   def create
     user = User.create(user_params)
     if user.save
-      render plain: user.to_json, content_type: 'application/json'
+        render plain: user.to_json, content_type: 'application/json'
     else
       render "Error saving user"
     end
